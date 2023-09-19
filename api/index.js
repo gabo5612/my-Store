@@ -7,14 +7,7 @@ const {errorHandler, logErrors, boomErrorHandler}= require('./middlewares/errorH
 app.use(express.json());
 
 
-const whiteList=['https://localhost:8080','http://127.0.0.1:5500']
-
-const options={
-  origin:(origin, callBack)=>{
-    whiteList.includes(origin)? callBack(null, true): callBack(new Error('no permitido'))
-  }
-}
-app.use(cors(options))
+app.use(cors())
 app.get('/api', (req, res)=>{
   res.send('hola a mi server')
 })
