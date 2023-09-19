@@ -2,7 +2,7 @@ const express= require('express');
 const routerApi= require('./routes/')
 const cors= require('cors')
 const app = express();
-const port= 3005;
+const port= process.env.PORT || 3005;
 const {errorHandler, logErrors, boomErrorHandler}= require('./middlewares/errorHandler')
 app.use(express.json());
 
@@ -15,13 +15,13 @@ const options={
   }
 }
 app.use(cors(options))
-app.get('/', (req, res)=>{
+app.get('/api', (req, res)=>{
   res.send('hola a mi server')
 })
 
 routerApi(app)
 
-app.get('/people', (req, res) => {
+app.get('/api/people', (req, res) => {
   res.json([{
       name: 'Arturo',
       type: 'employee'
@@ -31,7 +31,7 @@ app.get('/people', (req, res) => {
   }]);
 });
 
-app.get('/people/:id', (req, res) => {
+app.get('/api/people/:id', (req, res) => {
   const { id } = req.params;
   res.json({
       id,
